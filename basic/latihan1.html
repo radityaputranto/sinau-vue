@@ -1,0 +1,83 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div id="app">
+        <!-- <h1>What is Vue.js</h1> -->
+        <!-- contoh interpolation sytax -->
+        <!-- v-once tidak bisa diedit atau dimodify / nilanaya tetap-->
+        <h1 v-once> {{ name }}</h1>
+        <!-- expression -->
+        <h3>{{ name+" testing".toUpperCase() }}</h3>
+        <h5> {{ isactive ? 'success' : 'error!' }}</h5>
+        <h5> {{ getname() }}</h5>
+        <!-- <h5>{{ ubahNama("tesnmabaru") }}</h5> -->
+        <!-- contoh computed -->
+        <h5>{{ namaLengkap }}</h5>
+        <hr>
+        <p>The progressive
+            Javascript Framework
+        </p>
+        <hr>
+    </div>
+
+    <footer>
+        <p>copyright 2019</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        //root component
+        const vm = new Vue({
+            el: '#app', // <-properti
+            //data : member
+            data: { // <-properti
+                //string , number, boolean, array, object
+                name: 'doremi fasilasido',
+                message: "hello wordl",
+                isactive: true,
+                //properti untuk computed
+                qty: 1,
+                nameDepan: 'raditya',
+                namaBelakang: 'putranto'
+            },
+            methods: {
+                getname: function () {
+                    return 'Hello, ' + this.name
+                },
+                ubahNama: function (nameBaru) {
+                    this.name = nameBaru
+                    //bisa panggil data / fungsi lain
+                    //return getName()
+                }
+            },
+            computed: {
+                //definisi computed
+                /* bila salah satu properti terupdate dan 
+                properti lainnya yang tergantung pada 
+                properti tersebut akan terupdate semua */
+                totalBayar: function () {
+                    return this.qty * 10000
+                },
+                namaLengkap: function () {
+                    return this.nameDepan + '-' + this.namaBelakang
+                }
+
+            }
+        })
+
+        //contoh obejct
+        const member = {
+            name: "raditya",
+            messasge: 'test pesan'
+        }
+    </script>
+</body>
+
+</html>
