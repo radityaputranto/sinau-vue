@@ -1,31 +1,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 </head>
 
 <body>
-
-
     <div id="app">
         <!-- <h1>What is Vue.js</h1> -->
         <!-- contoh interpolation sytax -->
         <!-- v-once tidak bisa diedit atau dimodify / nilanaya tetap-->
-        <h1 v-once> {{ name }}</h1>
+        <h1 v-once>{{ name }}</h1>
         <!-- expression -->
         <h3>{{ name+" testing".toUpperCase() }}</h3>
-        <h5> {{ isactive ? 'success' : 'error!' }}</h5>
-        <h5> {{ getname() }}</h5>
+        <h5>{{ isactive ? 'success' : 'error!' }}</h5>
+        <h5>{{ getname() }}</h5>
         <!-- <h5>{{ ubahNama("tesnmabaru") }}</h5> -->
+
         <!-- contoh computed -->
         <h5>{{ namaLengkap }}</h5>
-        <hr>
-        <p>The progressive
-            Javascript Framework
-        </p>
-        <hr>
+        <h6>{{ bilangan }}</h6>
+        <p>bilangan ini {{ infoBilangan }}</p>
+
+        <!-- directive V -->
+        <!-- <h1 v-text="link"></h1>  untuk cetak text-->
+        <h1 v-html="link"></h1> <!-- untuk binding element html -->
+        <h6 v-text="bilangan*5"></h6> <!-- directive binding -->
+
+        <!-- attribute binding -->
+        <!-- karena tidak bisa src="{{ gambar }}" -->
+        <img v-bind:src="gambar" width="400">
+        <!-- v-bind:src / :src -->
+
+        <!-- event -->
+        <h1>{{ bilangan }}</h1>
+        <h3>bilangan ini {{ infoBilangan }}</h3>
+        <button v-on:click="handleClick()">Tambah Bilangan</button>
+        <!-- v-on:click / @click -->
+
+        <hr />
+        <p>The progressive Javascript Framework</p>
+        <hr />
     </div>
 
     <footer>
@@ -35,48 +51,58 @@
     <script>
         //root component
         const vm = new Vue({
-            el: '#app', // <-properti
+            el: "#app", // <-properti
             //data : member
-            data: { // <-properti
+            data: {
+                // <-properti
                 //string , number, boolean, array, object
-                name: 'doremi fasilasido',
+                name: "doremi fasilasido",
                 message: "hello wordl",
                 isactive: true,
                 //properti untuk computed
                 qty: 1,
-                nameDepan: 'raditya',
-                namaBelakang: 'putranto'
+                nameDepan: "raditya",
+                namaBelakang: "putranto",
+                bilangan: 3,
+                link: '<a href="">link testing</a>',
+                gambar: 'img/react.png'
             },
             methods: {
                 getname: function () {
-                    return 'Hello, ' + this.name
+                    return "Hello, " + this.name;
                 },
                 ubahNama: function (nameBaru) {
-                    this.name = nameBaru
+                    this.name = nameBaru;
                     //bisa panggil data / fungsi lain
                     //return getName()
+                },
+                handleClick: function () {
+                    this.bilangan++
+                    this.gambar = 'img/vue.png'
                 }
             },
             computed: {
                 //definisi computed
                 /* bila salah satu properti terupdate dan 
-                properti lainnya yang tergantung pada 
-                properti tersebut akan terupdate semua */
+                      properti lainnya yang tergantung pada 
+                      properti tersebut akan terupdate semua */
                 totalBayar: function () {
-                    return this.qty * 10000
+                    return this.qty * 10000;
                 },
                 namaLengkap: function () {
-                    return this.nameDepan + '-' + this.namaBelakang
-                }
-
-            }
-        })
+                    return this.nameDepan + "-" + this.namaBelakang;
+                },
+                infoBilangan: function () {
+                    return this.bilangan % 2 === 0 ? "GENAP" : "GANJIL";
+                },
+            },
+        });
 
         //contoh obejct
         const member = {
             name: "raditya",
-            messasge: 'test pesan'
-        }
+            messasge: "test pesan",
+        };
     </script>
 </body>
 
