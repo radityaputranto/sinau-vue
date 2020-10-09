@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <style>
+        .active {
+            background: salmon;
+            border: 0;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,26 +33,62 @@
 
         <!-- directive V -->
         <!-- <h1 v-text="link"></h1>  untuk cetak text-->
-        <h1 v-html="link"></h1> <!-- untuk binding element html -->
-        <h6 v-text="bilangan*5"></h6> <!-- directive binding -->
+        <h1 v-html="link"></h1>
+        <!-- untuk binding element html -->
+        <h6 v-text="bilangan*5"></h6>
+        <!-- directive binding -->
 
         <!-- attribute binding -->
         <!-- karena tidak bisa src="{{ gambar }}" -->
-        <img v-bind:src="gambar" width="400">
+        <img v-bind:src="gambar" width="400" />
         <!-- v-bind:src / :src -->
 
         <!-- event -->
         <h1>{{ bilangan }}</h1>
         <h3>bilangan ini {{ infoBilangan }}</h3>
         <button v-on:click="handleClick()">Tambah Bilangan</button>
+        <br />
         <!-- v-on:click / @click -->
 
-        <hr />
-        <p>The progressive Javascript Framework</p>
-        <hr />
+        <!-- class binding -->
+        <button v-bind:class="{active: menu === 'home'}" @click="menu = 'home' ">
+            Home
+        </button>
+        <button v-bind:class="{active: menu === 'about'}" @click="menu = 'about' ">
+            About
+        </button>
+        <button v-bind:class="{active: menu === 'blog'}" @click="menu = 'blog' ">
+            Blog
+        </button>
+
+        <!-- two way data binding v-model-->
+        <br>
+        <input type="text" v-model="name">
+        <h4>{{ kelas }}</h4>
+        <label><input type="checkbox" value="vue" name="" id="" v-model="kelas">vue</label>
+        <label><input type="checkbox" value="react" name="" id="" v-model="kelas">react</label>
+        <label><input type="checkbox" value="angular" name="" id="" v-model="kelas">angular</label>
+
+        <!-- directive v-for -->
+        <br>
+        <ul>
+            <li v-for="(item, index) in kelas">{{ index+1 }} - {{ item }}</li>
+            <!-- bisa pakai 'in' / 'of' -->
+        </ul>
+        <h3>Perualangan (1-5)</h3>
+        <ul>
+            <li v-for="x in 5">{{ x }}</li>
+        </ul>
+        <h3>mencari bil Genap : {{ numbers }}</h3>
+        <ul>
+            <li v-for="x in cariBilanganGenap(numbers)">{{ x }}</li>
+        </ul>
     </div>
 
     <footer>
+        <hr />
+        <p>The progressive Javascript Framework</p>
+        <hr />
         <p>copyright 2019</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -65,7 +109,10 @@
                 namaBelakang: "putranto",
                 bilangan: 3,
                 link: '<a href="">link testing</a>',
-                gambar: 'img/react.png'
+                gambar: "img/react.png",
+                menu: "home",
+                kelas: ["golang", "python", "php"],
+                numbers: [1, 2, 3, 4, 5]
             },
             methods: {
                 getname: function () {
@@ -77,15 +124,20 @@
                     //return getName()
                 },
                 handleClick: function () {
-                    this.bilangan++
-                    this.gambar = 'img/vue.png'
+                    this.bilangan++;
+                    this.gambar = "img/vue.png";
+                },
+                cariBilanganGenap: function (data) {
+                    return data.filter(angka => {
+                        return angka % 2 == 0
+                    })
                 }
             },
             computed: {
                 //definisi computed
                 /* bila salah satu properti terupdate dan 
-                      properti lainnya yang tergantung pada 
-                      properti tersebut akan terupdate semua */
+                properti lainnya yang tergantung pada 
+                properti tersebut akan terupdate semua */
                 totalBayar: function () {
                     return this.qty * 10000;
                 },
