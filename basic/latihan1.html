@@ -76,6 +76,8 @@
             <li v-for="(item, index) in kelas">{{ index+1 }} - {{ item }}</li>
             <!-- bisa pakai 'in' / 'of' -->
         </ul>
+        <li v-else> Kelas belum tersedia</li>
+        <!-- directive harus sejajara / setlah element v-if -->
         <h3>Perualangan (1-5)</h3>
         <ul>
             <li v-for="x in 5">{{ x }}</li>
@@ -112,7 +114,9 @@
                 link: '<a href="">link testing</a>',
                 gambar: "img/react.png",
                 menu: "home",
-                kelas: ["golang", "python", "php"],
+                /* kelas: ["golang", "python", "php"], */
+                //directive else
+                kelas: [],
                 numbers: [1, 2, 3, 4, 5]
             },
             methods: {
