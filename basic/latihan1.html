@@ -84,7 +84,14 @@
             <li v-for="(item, index) in kelas">{{ index+1 }} - {{ item }}</li>
             <!-- bisa pakai 'in' / 'of' -->
         </ul>
-        
+
+        <!-- elemen template -  menampilkan di dalam block-->
+        <template v-if="kelas.length > 1">
+            <ul>
+                <li v-for="(item, index) in kelas">{{ index+1 }} - {{ item }}</li>
+            </ul>
+        </template>
+
         <h3>Perualangan (1-5)</h3>
         <ul>
             <li v-for="x in 5">{{ x }}</li>
