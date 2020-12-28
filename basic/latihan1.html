@@ -78,6 +78,13 @@
         </ul>
         <li v-else> Kelas belum tersedia</li>
         <!-- directive harus sejajara / setlah element v-if -->
+
+        <!-- directive vshow hanya bermain pada property css diubah display menajadi none -->
+        <ul v-show="kelas.length > 1">
+            <li v-for="(item, index) in kelas">{{ index+1 }} - {{ item }}</li>
+            <!-- bisa pakai 'in' / 'of' -->
+        </ul>
+        
         <h3>Perualangan (1-5)</h3>
         <ul>
             <li v-for="x in 5">{{ x }}</li>
