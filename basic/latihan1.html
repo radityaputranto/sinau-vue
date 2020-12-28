@@ -71,7 +71,8 @@
 
         <!-- directive v-for -->
         <br>
-        <ul>
+        <!-- directive if -->
+        <ul v-if="kelas.length > 1">
             <li v-for="(item, index) in kelas">{{ index+1 }} - {{ item }}</li>
             <!-- bisa pakai 'in' / 'of' -->
         </ul>
