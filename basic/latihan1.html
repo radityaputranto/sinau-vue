@@ -51,15 +51,17 @@
         <!-- v-on:click / @click -->
 
         <!-- class binding -->
-        <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click="gantiNama('home', $event)">
+        <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click.prevent="gantiNama('home')">
             Home
         </a>
-        <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click="gantiNama('about', $event)">
+        <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click.prevent="gantiNama('about')">
             About
         </a>
-        <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click="gantiNama('blog', $event)">
+        <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click.prevent="gantiNama('blog')">
             Blog
         </a>
+        <!-- event modifier untuk membuat code menjadi lebih elegan dan rapi  -->
+        <!-- yang seblumnya menggunkaan prevent default diubah menjadi '.prevent' -->
 
         <!-- two way data binding v-model-->
         <br>
@@ -237,11 +239,8 @@
                 say: function (message) {
                    alert(message)
                 },
-                gantiNama: function(data, event){
-                    console.log(event);
-                    event.preventDefault();
+                gantiNama: function(data){
                     this.menu = data;
-
                 }
             },
             computed: {
