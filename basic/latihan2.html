@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>latihan-2</title>
+</head>
+<body>
+<div id="app">
+    <header-component></header-component>
+
+    <main>
+        <h3>Tmbah Kelas.</h3>
+        <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
+
+        <h3>Daftar Kelas ({{ kelas.length }})</h3>
+
+        <template v-if="kelas.length > 1">
+            <ul>
+                <li v-for="(item, index) of kelas"> {{ index+1 }} - {{ item }}</li>
+            </ul>
+        </template>
+        <li v-else>Kelas Belum tersedia</li>
+    </main>
+
+    <footer-component></footer-component>
+</div>    
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+    Vue.component('header-component', {
+        template: `<header>
+                <p>The progressive Javascript Framework</p>
+                <hr>
+            </header>`
+    });
+    Vue.component('footer-component', {
+        template: `<footer>
+                    <hr>
+                    <p>copyright 2020 - sinau Vue</p>
+                </footer>`
+    });
+    
+    const vm = new Vue({
+        el: "#app", 
+        data: {
+            kelas: ["golang", "python", "php"],
+            kelasBaru:""
+        },
+        methods: {
+            submit: function(event){
+                var text = event.target.value; 
+                //this.kelas.push(text);
+                this.kelas.unshift(text);
+                event.target.value = "";
+            },
+            submit_vmodel: function(event){
+                this.kelas.push(this.kelasBaru);
+                this.kelasBaru.value = "";
+            }
+        },
+        computed: {
+            
+        }
+    });
+</script>
+</body>
+</html>
