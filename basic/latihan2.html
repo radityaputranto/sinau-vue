@@ -9,7 +9,7 @@
     <header-component nama="vue.js" gambar="img/vue.png" ></header-component>
 
     <main>
-        <kelas></kelas>
+        <kelas v-bind:items="kelas" v-bind:input="kelasBaru"></kelas>
     </main>
 
     <footer-component></footer-component>
@@ -32,37 +32,31 @@
                 </footer>`
     });
     Vue.component('kelas', {
+        props:['items','input'],
         //template harus dibungkus satu element saja
         template: `
         <div>
             <h3>Tmbah Kelas.</h3>
-            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit_vmodel" v-model="input"></p>
 
-            <h3>Daftar Kelas ({{ kelas.length }})</h3>
+            <h3>Daftar Kelas ({{ items.length }})</h3>
 
-            <template v-if="kelas.length > 1">
+            <template v-if="items.length > 1">
                 <ul>
-                    <li v-for="(item, index) of kelas"> {{ index+1 }} - {{ item }}</li>
+                    <li v-for="(item, index) of items"> {{ index+1 }} - {{ item }}</li>
                 </ul>
             </template>
             <li v-else>Kelas Belum tersedia</li>
         </div>`,
         data: function(){
             return{
-                kelas: ["golang", "python", "php"],
-                kelasBaru:""
+                
             }
         },
         methods: {
-            submit: function(event){
-                var text = event.target.value; 
-                //this.kelas.push(text);
-                this.kelas.unshift(text);
-                event.target.value = "";
-            },
             submit_vmodel: function(event){
-                this.kelas.push(this.kelasBaru);
-                this.kelasBaru.value = "";
+                this.items.push(this.input);
+                this.input.value = "";
             }
         }
     });
@@ -70,7 +64,8 @@
     const vm = new Vue({
         el: "#app", 
         data: {
-            
+            kelas: ["golang", "python", "php"],
+            kelasBaru:""
         },
         methods: {
             
