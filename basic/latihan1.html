@@ -144,6 +144,10 @@
             <button v-on:click="say('hi')">Say hi</button>
             <button v-on:click="say('what')">Say what</button>
           </div>
+
+          <!-- key modifier -->
+          <label for="">Tambahakan Kelas</label>
+          <input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit">
     </div>
 
     <footer>
@@ -181,9 +185,9 @@
                 link: '<a href="">link testing</a>',
                 gambar: "img/react.png",
                 menu: "home",
-                /* kelas: ["golang", "python", "php"], */
+                kelas: ["golang", "python", "php"],
                 //directive else
-                kelas: [],
+                //kelas: [],
                 loginType : 'username',
                 numbers: [1, 2, 3, 4, 5],
                 newTodoText: '',
@@ -241,6 +245,12 @@
                 },
                 gantiNama: function(data){
                     this.menu = data;
+                },
+                submit: function(event){
+                    var text = event.target.value; 
+                    //this.kelas.push(text);
+                    this.kelas.unshift(text);
+                    event.target.value = "";
                 }
             },
             computed: {
