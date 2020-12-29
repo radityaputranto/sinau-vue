@@ -10,6 +10,7 @@
 
     <main>
         <kelas v-bind:items="kelas" v-bind:input="kelasBaru"></kelas>
+        <home></home>
     </main>
 
     <footer-component></footer-component>
@@ -61,8 +62,15 @@
         }
     });
     
+    //define local component
+    const Home = {
+        template : '<div>Home</div>'
+    }
     const vm = new Vue({
         el: "#app", 
+        components : {
+            'home' : Home
+        },
         data: {
             kelas: ["golang", "python", "php"],
             kelasBaru:""
