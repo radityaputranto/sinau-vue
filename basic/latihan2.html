@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="app">
-    <header-component></header-component>
+    <header-component nama="vue.js" gambar="img/vue.png" ></header-component>
 
     <main>
         <kelas></kelas>
@@ -18,8 +18,10 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script>
     Vue.component('header-component', {
+        props : ['nama','gambar'],
         template: `<header>
-                <p>The progressive Javascript Framework</p>
+                <img :src="gambar" width="300" />
+                <p>{{ 'Hello, ' +nama }}</p>
                 <hr>
             </header>`
     });
