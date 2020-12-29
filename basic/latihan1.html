@@ -136,6 +136,12 @@
               v-on:remove="todos.splice(index, 1)"
             ></li>
           </ul>
+
+          <!-- event andler -->
+          <div id="contoh-3">
+            <button v-on:click="say('hi')">Say hi</button>
+            <button v-on:click="say('what')">Say what</button>
+          </div>
     </div>
 
     <footer>
@@ -227,6 +233,9 @@
                         title: this.newTodoText
                     })
                     this.newTodoText = ''
+                },
+                say: function (message) {
+                   alert(message)
                 }
             },
             computed: {
@@ -242,7 +251,7 @@
                 },
                 infoBilangan: function () {
                     return this.bilangan % 2 === 0 ? "GENAP" : "GANJIL";
-                },
+                }
             },
         });
 
