@@ -51,15 +51,15 @@
         <!-- v-on:click / @click -->
 
         <!-- class binding -->
-        <button v-bind:class="{active: menu === 'home'}" @click="menu = 'home' ">
+        <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click="gantiNama('home', $event)">
             Home
-        </button>
-        <button v-bind:class="{active: menu === 'about'}" @click="menu = 'about' ">
+        </a>
+        <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click="gantiNama('about', $event)">
             About
-        </button>
-        <button v-bind:class="{active: menu === 'blog'}" @click="menu = 'blog' ">
+        </a>
+        <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click="gantiNama('blog', $event)">
             Blog
-        </button>
+        </a>
 
         <!-- two way data binding v-model-->
         <br>
@@ -236,6 +236,12 @@
                 },
                 say: function (message) {
                    alert(message)
+                },
+                gantiNama: function(data, event){
+                    console.log(event);
+                    event.preventDefault();
+                    this.menu = data;
+
                 }
             },
             computed: {
