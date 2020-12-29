@@ -150,9 +150,16 @@
           <input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit">
 
           <!-- input binding -->
+          <br>
           <label for="">Kelas baru v-model</label>
           <input type="text" placeholder="Nama Kelas v-model" v-on:keyup.enter="submit_vmodel" v-model="kelasBaru">
           
+          <!-- component -->
+          <br>
+          <button-counter></button-counter>
+          <button-counter></button-counter>
+          <button-counter></button-counter>
+
     </div>
 
     <footer>
@@ -171,7 +178,15 @@
                 </li>\
             ',
             props: ['title']
-        })
+        });
+        Vue.component('button-counter', {
+            data: function () {
+                return {
+                count: 0
+                }
+            },
+            template: '<button v-on:click="count++">Anda mengklik saya {{ count }} kali.</button>'
+        });
         //root component
         const vm = new Vue({
             el: "#app", // <-properti
