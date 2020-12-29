@@ -148,6 +148,11 @@
           <!-- key modifier -->
           <label for="">Tambahakan Kelas</label>
           <input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit">
+
+          <!-- input binding -->
+          <label for="">Kelas baru v-model</label>
+          <input type="text" placeholder="Nama Kelas v-model" v-on:keyup.enter="submit_vmodel" v-model="kelasBaru">
+          
     </div>
 
     <footer>
@@ -205,7 +210,8 @@
                     title: 'Mow the lawn'
                 }
                 ],
-                nextTodoId: 4
+                nextTodoId: 4,
+                kelasBaru:""
             },
             methods: {
                 getname: function () {
@@ -251,6 +257,10 @@
                     //this.kelas.push(text);
                     this.kelas.unshift(text);
                     event.target.value = "";
+                },
+                submit_vmodel: function(event){
+                    this.kelas.push(this.kelasBaru);
+                    this.kelasBaru.value = "";
                 }
             },
             computed: {
