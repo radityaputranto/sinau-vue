@@ -9,17 +9,7 @@
     <header-component></header-component>
 
     <main>
-        <h3>Tmbah Kelas.</h3>
-        <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
-
-        <h3>Daftar Kelas ({{ kelas.length }})</h3>
-
-        <template v-if="kelas.length > 1">
-            <ul>
-                <li v-for="(item, index) of kelas"> {{ index+1 }} - {{ item }}</li>
-            </ul>
-        </template>
-        <li v-else>Kelas Belum tersedia</li>
+        <kelas></kelas>
     </main>
 
     <footer-component></footer-component>
@@ -39,12 +29,27 @@
                     <p>copyright 2020 - sinau Vue</p>
                 </footer>`
     });
-    
-    const vm = new Vue({
-        el: "#app", 
-        data: {
-            kelas: ["golang", "python", "php"],
-            kelasBaru:""
+    Vue.component('kelas', {
+        //template harus dibungkus satu element saja
+        template: `
+        <div>
+            <h3>Tmbah Kelas.</h3>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
+
+            <h3>Daftar Kelas ({{ kelas.length }})</h3>
+
+            <template v-if="kelas.length > 1">
+                <ul>
+                    <li v-for="(item, index) of kelas"> {{ index+1 }} - {{ item }}</li>
+                </ul>
+            </template>
+            <li v-else>Kelas Belum tersedia</li>
+        </div>`,
+        data: function(){
+            return{
+                kelas: ["golang", "python", "php"],
+                kelasBaru:""
+            }
         },
         methods: {
             submit: function(event){
@@ -57,6 +62,16 @@
                 this.kelas.push(this.kelasBaru);
                 this.kelasBaru.value = "";
             }
+        }
+    });
+    
+    const vm = new Vue({
+        el: "#app", 
+        data: {
+            
+        },
+        methods: {
+            
         },
         computed: {
             
