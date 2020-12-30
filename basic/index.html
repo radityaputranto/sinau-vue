@@ -178,7 +178,8 @@
 
     //base componenet
     const vm = new Vue({
-        el: "#app", 
+        /* el: "#app",  */
+        //diubah menjadi di luar saat create instance vue, saat proses mount
         router,
         components : {
             'home' : Home
@@ -192,9 +193,25 @@
             kelasBaru:""
         },
         //secaara otomatsi dirender saat vue dibuat
+        beforeCreate(){
+            console.log("before create");
+        },
         created(){
             this.kelas =  JSON.parse(localStorage.getItem('kelas')) || [];
             /* '||' berfungsi sebagai or atau elses bila tidaka da data kelas di localstorage'  */
+            console.log("created");
+        },
+        beforeMount(){
+            console.log("before mounted");
+        },
+        mounted(){
+            console.log("mounted");
+        },
+        beforeUpdate(){
+            console.log("before update");
+        },
+        updated(){
+            console.log("updated");
         },
         methods: {
             hapuskelas: function(id){
@@ -221,6 +238,8 @@
             
         }
     });
+
+    vm.$mount('#app');
 </script>
 </body>
 </html>
