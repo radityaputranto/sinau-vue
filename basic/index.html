@@ -64,8 +64,8 @@
 
             <template v-if="items.length >= 1">
                 <ul>
-                    <li v-for="(item, index) of items"> {{ index+1 }} - {{ item }}
-                        <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
+                    <li v-for="(item, index) of items"> {{ index+1 }} - {{ item.judul }}
+                        <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
                     </li> 
                 </ul>
             </template>
@@ -103,12 +103,16 @@
             'home' : Home
         },
         data: {
-            kelas: ["golang", "python", "php"],
+            kelas: [
+                {id:1, judul:'vuejs', deskripsi : 'The progressive jaavscipt framework', gambar:'vuejs.jpg'},
+                {id:2, judul:'reactjs', deskripsi : 'a javascript library for building user interfaces', gambar:'react.jpg'}
+            ],
             kelasBaru:""
         },
         methods: {
-            hapuskelas: function(index){
-                this.kelas.splice(index, 1);
+            hapuskelas: function(id){
+                //this.kelas.splice(index, 1);
+                this.kelas = this.kelas.filter(item => item.id != id);
             },
             submitkelas: function(event){
                 text = event.target.value;
