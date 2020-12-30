@@ -40,6 +40,7 @@
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <!-- uuid for generate id -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
     Vue.component('header-component', {
@@ -71,7 +72,7 @@
         //template harus dibungkus satu element saja
         template: `
         <div>
-            <h3>Tmbah Kelas.</h3>
+            <h3>Tambah Kelas.</h3>
             <form v-on:submit.prevent="submitkelas">
                 <div class="input-group">
                     <label for="">Judul : </label> <br>
@@ -199,11 +200,21 @@
             hapuskelas: function(id){
                 //this.kelas.splice(index, 1);
                 this.kelas = this.kelas.filter(item => item.id != id);
+                localStorage.setItem('kelas', JSON.stringify(this.kelas));
+                swal({
+                    text:'Data berhasil dihapus',
+                    icon: 'warning'
+                })
             },
             submitkelas: function(data){
                 this.kelas.unshift(data);
                 localStorage.setItem('kelas', JSON.stringify(this.kelas));
                 /* localstorage ahanya bisa disimpan dalam bentuk stong / tidak bisa object js */
+                swal({
+                    title : data.judul,
+                    text:'Data berhasil ditambahkan',
+                    icon: 'success'
+                })
             }
         },
         computed: {
