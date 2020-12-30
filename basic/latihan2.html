@@ -8,9 +8,18 @@
 <div id="app">
     <header-component nama="vue.js" gambar="img/vue.png" ></header-component>
 
+    <nav>
+        <router-link to="/">Home</router-link>
+        <router-link to="/about">About</router-link>
+        <router-link to="/kelas">Kelas</router-link>
+
+    </nav>
+
     <main>
-        <kelas v-bind:items="kelas" v-bind:input="kelasBaru" v-on:hapuskelas="hapuskelas($event)" v-on:submitkelas="submitkelas($event)"></kelas>
-        <home></home>
+        <!-- render secaram nanual -->
+        <!-- <kelas v-bind:items="kelas" v-bind:input="kelasBaru" v-on:hapuskelas="hapuskelas($event)" v-on:submitkelas="submitkelas($event)"></kelas> -->
+        <!-- <home></home> -->
+        <router-view v-bind:items="kelas" v-bind:input="kelasBaru" v-on:hapuskelas="hapuskelas($event)" v-on:submitkelas="submitkelas($event)"></router-view>
     </main>
 
     <footer-component>
@@ -20,6 +29,7 @@
 </div>    
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script>
     Vue.component('header-component', {
         props : ['nama','gambar'],
@@ -34,7 +44,15 @@
                     <slot></slot>
                 </footer>`
     });
-    Vue.component('kelas', {
+    
+    //define local component
+    const Home = {
+        template : '<div>Home</div>'
+    }
+    const About = {
+        template : '<div>About</div>'
+    } 
+    const Kelas = {
         props:['items'],
         //template harus dibungkus satu element saja
         template: `
@@ -63,14 +81,23 @@
         methods: {
             
         }
-    });
-    
-    //define local component
-    const Home = {
-        template : '<div>Home</div>'
     }
+
+    //router
+    const routes =[
+        {path: '/', component: Home },
+        {path: '/about', component: About }, 
+        {path: '/kelas', component: Kelas }
+    ]
+    const router = new VueRouter({
+      routes // short for `routes: routes`
+    })
+
+
+    //base componenet
     const vm = new Vue({
         el: "#app", 
+        router,
         components : {
             'home' : Home
         },
