@@ -74,7 +74,7 @@
 
                 <div>
                     <label for="">Upload Gambar : </label>
-                    <img :src="previewimg" v-if="previewimg" width="200">
+                    <img :src="previewimg" ref="gambar" v-if="previewimg" width="200">
                     <input type="file" v-on:change="upload_picture">
                 </div>
 
@@ -114,6 +114,13 @@
                     gambar: this.kelas.gambar
                 }
                 this.$emit('submitkelas', data);
+
+                this.kelas.judul = '';
+                this.kelas.deskripsi = '';
+                this.kelas.gambar = '';
+                this.previewimg = '';
+                //mengosongkan input type file
+                this.$refs.gambar.value = '';
             },
             upload_picture: function(event){
                 const img= event.target.files[0].name;
