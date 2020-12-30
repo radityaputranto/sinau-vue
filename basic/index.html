@@ -193,6 +193,7 @@
         //secaara otomatsi dirender saat vue dibuat
         created(){
             this.kelas =  JSON.parse(localStorage.getItem('kelas')) || [];
+            /* '||' berfungsi sebagai or atau elses bila tidaka da data kelas di localstorage'  */
         },
         methods: {
             hapuskelas: function(id){
@@ -202,6 +203,7 @@
             submitkelas: function(data){
                 this.kelas.unshift(data);
                 localStorage.setItem('kelas', JSON.stringify(this.kelas));
+                /* localstorage ahanya bisa disimpan dalam bentuk stong / tidak bisa object js */
             }
         },
         computed: {
