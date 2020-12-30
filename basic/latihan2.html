@@ -9,7 +9,7 @@
     <header-component nama="vue.js" gambar="img/vue.png" ></header-component>
 
     <main>
-        <kelas v-bind:items="kelas" v-bind:input="kelasBaru" v-on:hapuskelas="hapuskelas($event)"></kelas>
+        <kelas v-bind:items="kelas" v-bind:input="kelasBaru" v-on:hapuskelas="hapuskelas($event)" v-on:submitkelas="submitkelas($event)"></kelas>
         <home></home>
     </main>
 
@@ -33,12 +33,12 @@
                 </footer>`
     });
     Vue.component('kelas', {
-        props:['items','input'],
+        props:['items'],
         //template harus dibungkus satu element saja
         template: `
         <div>
             <h3>Tmbah Kelas.</h3>
-            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit_vmodel" v-model="input"></p>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
 
             <h3>Daftar Kelas ({{ items.length }})</h3>
 
@@ -59,10 +59,7 @@
             }
         },
         methods: {
-            submit_vmodel: function(event){
-                this.items.push(this.input);
-                this.input.value = "";
-            }
+            
         }
     });
     
@@ -82,6 +79,10 @@
         methods: {
             hapuskelas: function(index){
                 this.kelas.splice(index, 1);
+            },
+            submitkelas: function(event){
+                text = event.target.value;
+                this.kelas.unshift(text);
             }
         },
         computed: {
