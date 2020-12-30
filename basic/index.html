@@ -164,14 +164,38 @@
         }
     }
     const detailKelas = {
-        template : '<div> halo detail kelas</div>'
+        template : `<div>
+            <img :src="url_gambar(detailkelas.gambar)" v-if="detailkelas.gambar" width="200">
+            <h3>{{ $route.params.idkelas }} - {{ detailkelas.judul }}</h3>
+            <p>{{ detailkelas.deskripsi }}</p>
+            <router-link to="/kelas">Kembali</router-link>
+        </div>`,
+        data(){
+            return{
+                detailkelas :{}
+            }
+        },
+        created(){
+            this.filterkelas()
+        },
+        methods:{
+            filterkelas(){
+                let kelas = JSON.parse(localStorage.getItem('kelas'));
+                let id = this.$route.params.idkelas;
+                let item = kelas.filter(k => k.id == id);
+                this.detailkelas = item[0];
+            },
+            url_gambar: function(gambar){
+                return '../img/'+gambar;
+            }
+        }
     } 
     //router
     const routes =[
         {path: '/', component: Home },
         {path: '/about', component: About }, 
         {path: '/kelas', component: Kelas },
-        {path: '/kelas/:id', component: detailKelas },
+        {path: '/kelas/:idkelas', component: detailKelas },
         {path: '*', component: NotFound }
     ]
     const router = new VueRouter({
