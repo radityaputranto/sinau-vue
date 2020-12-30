@@ -196,6 +196,7 @@
             },
             submitkelas: function(data){
                 this.kelas.unshift(data);
+                localStorage.setItem('kelas', JSON.stringify(this.kelas));
             }
         },
         computed: {
