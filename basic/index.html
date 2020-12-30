@@ -3,6 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>latihan-2</title>
+    <style>
+        .error{
+            color:red;
+        }
+        .input-group{
+            margin-bottom : 5px;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -65,17 +73,18 @@
         <div>
             <h3>Tmbah Kelas.</h3>
             <form v-on:submit.prevent="submitkelas">
-                <div>
+                <div class="input-group">
                     <label for="">Judul : </label> <br>
                     <input type="text" v-model="kelas.judul" placeholder="Judul kelas">
+                    <div class="error" v-if="error.judul"> {{ error.judul }}</div>
                 </div>
 
-                <div>
+                <div class="input-group">
                     <label for="">Deskripsi : </label> <br>
                     <textarea type="text" v-model="kelas.deskripsi" placeholder="Deskripsi kelas"></textarea>
                 </div>
 
-                <div>
+                <div class="input-group">
                     <label for="">Upload Gambar : </label>
                     <img :src="previewimg" ref="gambar" v-if="previewimg" width="200">
                     <input type="file" v-on:change="upload_picture">
@@ -106,11 +115,18 @@
                     deskripsi: '',
                     gambar : '',
                 },
-                previewimg:''
+                previewimg:'',
+                error: {
+                    judul :'',
+                    deskripsi : ''
+                }
             }
         },
         methods: {
             submitkelas: function(){
+                if(this.kelas.judul == ''){
+                    this.error.judul = 'judul is required'
+                }
                 //console.log(this.kelas);
                 const data={
                     id : uuidv4(),
