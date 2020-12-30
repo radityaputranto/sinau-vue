@@ -13,7 +13,10 @@
         <home></home>
     </main>
 
-    <footer-component></footer-component>
+    <footer-component>
+        <hr>
+        <p>copyright 2020 - sinau Vue</p>
+    </footer-component>
 </div>    
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -28,8 +31,7 @@
     });
     Vue.component('footer-component', {
         template: `<footer>
-                    <hr>
-                    <p>copyright 2020 - sinau Vue</p>
+                    <slot></slot>
                 </footer>`
     });
     Vue.component('kelas', {
