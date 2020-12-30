@@ -183,11 +183,16 @@
             'home' : Home
         },
         data: {
-            kelas: [
+            /* kelas: [
                 {id:1, judul:'vuejs', deskripsi : 'The progressive jaavscipt framework', gambar:'vue.png'},
                 {id:2, judul:'reactjs', deskripsi : 'a javascript library for building user interfaces', gambar:'react.png'}
-            ],
+            ], */
+            kelas:[],
             kelasBaru:""
+        },
+        //secaara otomatsi dirender saat vue dibuat
+        created(){
+            this.kelas =  JSON.parse(localStorage.getItem('kelas')) || [];
         },
         methods: {
             hapuskelas: function(id){
