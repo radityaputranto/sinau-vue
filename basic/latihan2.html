@@ -9,7 +9,7 @@
     <header-component nama="vue.js" gambar="img/vue.png" ></header-component>
 
     <main>
-        <kelas v-bind:items="kelas" v-bind:input="kelasBaru"></kelas>
+        <kelas v-bind:items="kelas" v-bind:input="kelasBaru" v-on:hapuskelas="hapuskelas($event)"></kelas>
         <home></home>
     </main>
 
@@ -42,13 +42,17 @@
 
             <h3>Daftar Kelas ({{ items.length }})</h3>
 
-            <template v-if="items.length > 1">
+            <template v-if="items.length >= 1">
                 <ul>
-                    <li v-for="(item, index) of items"> {{ index+1 }} - {{ item }}</li>
+                    <li v-for="(item, index) of items"> {{ index+1 }} - {{ item }}
+                        <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
+                    </li> 
                 </ul>
             </template>
             <li v-else>Kelas Belum tersedia</li>
-        </div>`,
+        </div>`
+        /* $emit untuk component anak mengakses ke component induk */
+        ,
         data: function(){
             return{
                 
@@ -76,7 +80,9 @@
             kelasBaru:""
         },
         methods: {
-            
+            hapuskelas: function(index){
+                this.kelas.splice(index, 1);
+            }
         },
         computed: {
             
