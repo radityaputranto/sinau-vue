@@ -55,6 +55,9 @@
     const About = {
         template : '<div>About</div>'
     } 
+    const NotFound = {
+        template : '<div> 404 Npt Found</div>'
+    } 
     const Kelas = {
         props:['items'],
         //template harus dibungkus satu element saja
@@ -85,7 +88,9 @@
 
             <template v-if="items.length >= 1">
                 <ul>
-                    <li v-for="(item, index) of items"> {{ index+1 }} - {{ item.judul }}
+                    <li v-for="(item, index) of items"> 
+                        <img :src="'img/'+item.gambar" width="200"></img>
+                        {{ index+1 }} - {{ item.judul }}
                         <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
                     </li> 
                 </ul>
@@ -134,7 +139,8 @@
     const routes =[
         {path: '/', component: Home },
         {path: '/about', component: About }, 
-        {path: '/kelas', component: Kelas }
+        {path: '/kelas', component: Kelas },
+        {path: '*', component: NotFound }
     ]
     const router = new VueRouter({
         mode : 'history',
@@ -151,8 +157,8 @@
         },
         data: {
             kelas: [
-                {id:1, judul:'vuejs', deskripsi : 'The progressive jaavscipt framework', gambar:'vuejs.jpg'},
-                {id:2, judul:'reactjs', deskripsi : 'a javascript library for building user interfaces', gambar:'react.jpg'}
+                {id:1, judul:'vuejs', deskripsi : 'The progressive jaavscipt framework', gambar:'vue.png'},
+                {id:2, judul:'reactjs', deskripsi : 'a javascript library for building user interfaces', gambar:'react.png'}
             ],
             kelasBaru:""
         },
