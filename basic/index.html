@@ -82,6 +82,7 @@
                 <div class="input-group">
                     <label for="">Deskripsi : </label> <br>
                     <textarea type="text" v-model="kelas.deskripsi" placeholder="Deskripsi kelas"></textarea>
+                    <div class="error" v-if="error.deskripsi"> {{ error.deskripsi }}</div>
                 </div>
 
                 <div class="input-group">
@@ -98,7 +99,7 @@
             <template v-if="items.length >= 1">
                 <ul>
                     <li v-for="(item, index) of items"> 
-                        <img :src="'img/'+item.gambar" width="200"></img>
+                        <img :src="'img/'+item.gambar" width="200" v-if="item.gambar"></img>
                         {{ index+1 }} - {{ item.judul }}
                         <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
                     </li> 
@@ -124,24 +125,34 @@
         },
         methods: {
             submitkelas: function(){
+                this.error.judul = '';
+                this.error.deskripsi = '';
+
                 if(this.kelas.judul == ''){
                     this.error.judul = 'judul is required'
                 }
-                //console.log(this.kelas);
-                const data={
-                    id : uuidv4(),
-                    judul: this.kelas.judul,
-                    deskripsi: this.kelas.deskripsi,
-                    gambar: this.kelas.gambar
+                if(this.kelas.deskripsi == ''){
+                    this.error.deskripsi = 'deskripsi is required'
                 }
-                this.$emit('submitkelas', data);
+                //console.log(this.kelas);
+                if(this.kelas.judul && this.kelas.deskripsi){
+                    const data={
+                        id : uuidv4(),
+                        judul: this.kelas.judul,
+                        deskripsi: this.kelas.deskripsi,
+                        gambar: this.kelas.gambar
+                    }
+                    this.$emit('submitkelas', data);
 
-                this.kelas.judul = '';
-                this.kelas.deskripsi = '';
-                this.kelas.gambar = '';
-                this.previewimg = '';
-                //mengosongkan input type file
-                this.$refs.gambar.value = '';
+                    this.kelas.judul = '';
+                    this.kelas.deskripsi = '';
+                    this.kelas.gambar = '';
+                    this.previewimg = '';
+                    //mengosongkan input type file
+                    if(this.$refs.gambar != undefined){
+                        this.$refs.gambar.value = '';
+                    }
+                }
             },
             upload_picture: function(event){
                 const img= event.target.files[0].name;
