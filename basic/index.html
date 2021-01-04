@@ -44,6 +44,7 @@
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -60,6 +61,9 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  const kelasRef = db.ref('kelas');
 </script>
 <script>
     Vue.component('header-component', {
@@ -244,9 +248,14 @@
             console.log("before create");
         },
         created(){
-            this.kelas =  JSON.parse(localStorage.getItem('kelas')) || [];
+            // get data form local storage
+            //this.kelas =  JSON.parse(localStorage.getItem('kelas')) || [];
             /* '||' berfungsi sebagai or atau elses bila tidaka da data kelas di localstorage'  */
             console.log("created");
+
+            //firebase
+            //(value, function ketika berhasil, function ketika error)
+            kelasRef.on('value',this.resultData,this.errorData);
         },
         beforeMount(){
             console.log("before mounted");
@@ -279,6 +288,12 @@
                     text:'Data berhasil ditambahkan',
                     icon: 'success'
                 })
+            },
+            resultData(items){
+                console.log(items.val());
+            },
+            errorData(error){
+                console.log(error);
             }
         },
         computed: {
