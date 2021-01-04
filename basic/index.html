@@ -272,8 +272,10 @@
         methods: {
             hapuskelas: function(id){
                 //this.kelas.splice(index, 1);
-                this.kelas = this.kelas.filter(item => item.id != id);
-                localStorage.setItem('kelas', JSON.stringify(this.kelas));
+                /* this.kelas = this.kelas.filter(item => item.id != id);
+                localStorage.setItem('kelas', JSON.stringify(this.kelas)); */
+
+                db.ref('/kelas/'+id).remove()
                 swal({
                     text:'Data berhasil dihapus',
                     icon: 'warning'
@@ -285,7 +287,6 @@
                 /* localstorage ahanya bisa disimpan dalam bentuk stong / tidak bisa object js */
 
                 //store to firebase
-                this.kelas =[];
                 kelasRef.push({
                     judul:data.judul,
                     deskripsi: data.deskripsi,
@@ -298,8 +299,15 @@
                 })
             },
             resultData(items){
+                this.kelas =[];
                 items.forEach((item) => {
-                    this.kelas.push(item.val());
+                    let data = {
+                        id:item.key,
+                        judul: item.val().judul,
+                        deskripsi:item.val().deskripsi,
+                        gambar:item.val().gambar 
+                    }
+                    this.kelas.push(data);
                 })
             },
             errorData(error){
