@@ -280,9 +280,17 @@
                 })
             },
             submitkelas: function(data){
-                this.kelas.unshift(data);
-                localStorage.setItem('kelas', JSON.stringify(this.kelas));
+                //this.kelas.unshift(data);
+                //localStorage.setItem('kelas', JSON.stringify(this.kelas));
                 /* localstorage ahanya bisa disimpan dalam bentuk stong / tidak bisa object js */
+
+                //store to firebase
+                this.kelas =[];
+                kelasRef.push({
+                    judul:data.judul,
+                    deskripsi: data.deskripsi,
+                    gambar:data.gambar
+                });
                 swal({
                     title : data.judul,
                     text:'Data berhasil ditambahkan',
