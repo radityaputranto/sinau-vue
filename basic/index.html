@@ -14,7 +14,7 @@
 </head>
 <body>
 <div id="app">
-    <header-component nama="vue.js" gambar="img/vue.png" ></header-component>
+    <header-component nama="vue.js"></header-component>
 
     <nav>
         <router-link to="/">Home</router-link>
@@ -67,9 +67,9 @@
 </script>
 <script>
     Vue.component('header-component', {
-        props : ['nama','gambar'],
+        props : ['nama'],
         template: `<header>
-                <img :src="gambar" width="300" />
+                <img src="/img/vue.png" width="300" />
                 <p>{{ 'Hello, ' +nama }}</p>
                 <hr>
             </header>`
@@ -188,10 +188,13 @@
     }
     const detailKelas = {
         template : `<div>
-            <img :src="url_gambar(detailkelas.gambar)" v-if="detailkelas.gambar" width="200">
-            <h3>{{ $route.params.idkelas }} - {{ detailkelas.judul }}</h3>
-            <p>{{ detailkelas.deskripsi }}</p>
-            <router-link to="/kelas">Kembali</router-link>
+            <template v-if="detailkelas">
+                <img :src="url_gambar(detailkelas.gambar)" v-if="detailkelas.gambar" width="200">
+                <h3>{{ $route.params.idkelas }} - {{ detailkelas.judul }}</h3>
+                <p>{{ detailkelas.deskripsi }}</p>
+                <router-link to="/kelas">Kembali</router-link>
+            </template>
+            <p v-else>Kelas tidak ada</p>
         </div>`,
         data(){
             return{
@@ -203,13 +206,19 @@
         },
         methods:{
             filterkelas(){
-                let kelas = JSON.parse(localStorage.getItem('kelas'));
+                //let kelas = JSON.parse(localStorage.getItem('kelas'));
                 let id = this.$route.params.idkelas;
-                let item = kelas.filter(k => k.id == id);
-                this.detailkelas = item[0];
+                /* let item = kelas.filter(k => k.id == id);
+                this.detailkelas = item[0]; */
+
+                //get from firebase
+                let kelasDetailRef = db.ref('kelas/'+id);
+                kelasDetailRef.on('value',(item)=>{
+                    this.detailkelas = item.val()
+                })
             },
             url_gambar: function(gambar){
-                return '../img/'+gambar;
+                return gambar ? '../img/'+gambar : '';
             }
         }
     } 
