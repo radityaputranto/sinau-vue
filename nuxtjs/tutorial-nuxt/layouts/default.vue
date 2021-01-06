@@ -15,6 +15,7 @@ html {
     'Helvetica Neue',
     Arial,
     sans-serif;
+  margin:15%;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
