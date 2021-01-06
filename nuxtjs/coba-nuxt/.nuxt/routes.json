@@ -1,0 +1,23 @@
+[
+  {
+    "name": "about",
+    "path": "/about",
+    "component": "/Users/radityaputranto/Desktop/sinau/basicVue/nuxtjs/coba-nuxt/pages/about.vue",
+    "chunkName": "pages/about",
+    "_name": "_0ccbbe32"
+  },
+  {
+    "name": "contact",
+    "path": "/contact",
+    "component": "/Users/radityaputranto/Desktop/sinau/basicVue/nuxtjs/coba-nuxt/pages/contact.vue",
+    "chunkName": "pages/contact",
+    "_name": "_0b51ce05"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/radityaputranto/Desktop/sinau/basicVue/nuxtjs/coba-nuxt/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_2c8398f7"
+  }
+]
