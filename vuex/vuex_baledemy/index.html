@@ -28,7 +28,7 @@
             title: 'VueJS + Vuex',
         },
         mutations: {
-            increment (state) {
+            increment_count (state) {
             state.count++
             }
         },
@@ -43,7 +43,7 @@
         store:storecontainer,
         methods:{
             increment(){
-                this.$store.state.count++;
+                this.$store.commit('increment_count');
             }
         }
     })
