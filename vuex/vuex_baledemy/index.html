@@ -12,8 +12,10 @@
 <body>
 
 <div id="app">
-	<h1>{{ title }}</h1>
-	<p>State Management Pattern</p>
+	<h1>{{ $store.state.title }}</h1>
+	<h3>{{ $store.state.count }}</h3>
+    <p>State Management Pattern</p>
+    <button @click="increment">Hiung</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -22,7 +24,8 @@
 <script>
     const storecontainer = new Vuex.Store({
         state: {
-            count: 0
+            count: 1,
+            title: 'VueJS + Vuex',
         },
         mutations: {
             increment (state) {
@@ -36,10 +39,13 @@
     new Vue({
         el:'#app',
         data :{
-            title: 'VueJS',
-            count: 1
         },
-        store:storecontainer
+        store:storecontainer,
+        methods:{
+            increment(){
+                this.$store.state.count++;
+            }
+        }
     })
 </script>
 </body>
