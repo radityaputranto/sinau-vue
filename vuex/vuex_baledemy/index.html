@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vuex</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			margin: 5%
+		}
+	</style>
+</head>
+<body>
+
+<div id="app">
+	<h1>{{ title }}</h1>
+	<p>State Management Pattern</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vuex@3.6.0/dist/vuex.js"></script>
+
+<script>
+    const storecontainer = new Vuex.Store({
+        state: {
+            count: 0
+        },
+        mutations: {
+            increment (state) {
+            state.count++
+            }
+        },
+        actions:{
+
+        }
+    })
+    new Vue({
+        el:'#app',
+        data :{
+            title: 'VueJS',
+            count: 1
+        },
+        store:storecontainer
+    })
+</script>
+</body>
+</html>
